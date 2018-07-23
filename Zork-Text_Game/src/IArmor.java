@@ -5,5 +5,6 @@ public interface IArmor {
 	public int getFisicDefend();
 	public int getEnergyDefend();
 	public int getRadDefend();
+	public int getWeigh();
 
 }

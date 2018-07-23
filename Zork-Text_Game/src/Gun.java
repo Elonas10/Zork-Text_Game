@@ -8,8 +8,9 @@ public class Gun {
 	private int FisicAmmoCost;
 	private int EnergyAmmoCost;
 	private int RadAmmoCost;
+	private int Weigh;
 	
-	public Gun(String name,int FisicDmg, int EnergyDmg,int RadDmg,int FisicAmmoCost,int EnergyAmmoCost,int RadAmmoCost){
+	public Gun(String name,int FisicDmg, int EnergyDmg,int RadDmg,int FisicAmmoCost,int EnergyAmmoCost,int RadAmmoCost,int Weigh){
 		this.Name=name;
 		this.FisicDmg=FisicDmg;
 		this.EnergyDmg=EnergyDmg;
@@ -17,6 +18,7 @@ public class Gun {
 		this.FisicAmmoCost=FisicAmmoCost;
 		this.EnergyAmmoCost=EnergyAmmoCost;
 		this.RadAmmoCost=RadAmmoCost;
+		this.Weigh=Weigh;
 	}
 	
 	
@@ -55,10 +57,13 @@ public class Gun {
 		return this.EnergyAmmoCost;
 	}
 
-	
+
 	public int getRadAmmoCost() {
 		// TODO Auto-generated method stub
 		return this.RadAmmoCost;
  }
-	
+	public int getWeigh() {
+		// TODO Auto-generated method stub
+		return this.Weigh;
+	}
 }

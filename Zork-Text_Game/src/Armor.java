@@ -5,12 +5,14 @@ public class Armor implements IArmor {
 	private int FisicDefend;
 	private int EnergyDefend;
 	private int RadDefend;
+	private int Weigh;
 	
-	public Armor(String name, int FDefend,int EDefend,int RDefend) {
+	public Armor(String name, int FDefend,int EDefend,int RDefend,int Weigh) {
 		this.Name=name;
 		this.FisicDefend=FDefend;
 		this.EnergyDefend=EDefend;
 		this.RadDefend=RDefend;
+		this.Weigh=Weigh;
 	}
 	
 	
@@ -32,6 +34,10 @@ public class Armor implements IArmor {
 	@Override
 	public int getRadDefend() {
 		return this.RadDefend;
+	}
+	@Override
+	public int getWeigh() {
+		return this.Weigh;
 	}
 	
 }

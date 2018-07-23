@@ -7,9 +7,10 @@ public class Enemy implements IEnemy {
 	private int FisicDmg;
 	private int EnergyDmg;
 	private int RadDmg;
+	private int Xp;
 	private String Description;
 	
-	public Enemy(String name,String Type,double health,int FDmg,int EDmg,int RDmg,String Description){
+	public Enemy(String name,String Type,double health,int FDmg,int EDmg,int RDmg,int Xp,String Description){
 		this.Name=name;
 		this.EnemyType=Type;
 		this.Health=health;
@@ -17,7 +18,7 @@ public class Enemy implements IEnemy {
 		this.EnergyDmg=EDmg;
 		this.RadDmg=RDmg;
 		this.Description=Description;
-		
+		this.Xp=Xp;
 	}
 	
 	@Override

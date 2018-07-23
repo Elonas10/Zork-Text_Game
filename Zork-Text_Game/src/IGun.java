@@ -8,5 +8,6 @@ public interface IGun {
 	public int getFisicAmmoCost();
 	public int getEnergyAmmoCost();
 	public int getRadAmmoCost();
+	public int getWeigth();
 	
 }
