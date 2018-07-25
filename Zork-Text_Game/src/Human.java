@@ -6,9 +6,9 @@ public class Human {
 	double Rad;
 	int Max_Weigh;
 	int Xp;
-	int FisicDefence;
-	int EnergyDefence;
-	int RadDefence;
+	int FisicDefense;
+	int EnergyDefense;
+	int RadDefense;
 	int FisicAmmo;
 	int EnergyAmmo;
 	int RadAmmo;

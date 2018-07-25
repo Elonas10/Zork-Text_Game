@@ -8,3 +8,5 @@
 /IEnemy.class
 /IFactory.class
 /Human.class
+/Box.class
+/IVisitor.class
