@@ -2,8 +2,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+	public static int X,Y;
+	public static boolean endGame,gameOver;
 	public static void main(String[] args) {
-		
+		Scanner a= new Scanner(System.in);
+		int option=0;
 		//Historia
 		
 		System.out.println("Una gran guerra nuclear destruyo todo el mundo,quedando solo una superficie  llena \nde radiacion y  escombros de lo que antes eran grandes ciudades de la humanidad.");
@@ -19,12 +22,20 @@ public class Main {
 		System.out.println("");
 		System.out.println("");
 		
-		Human Humano = new Human();
 		
+		
+		// Tamaño del mapa
+		System.out.println("De que tamaño quieres el mapa:");
+		System.out.println("Ancho:");
+		option=a.nextInt();
+		X=option;
+		System.out.println("Largo:");
+		option=a.nextInt();
+		Y=option;
 		
 		
 		//Colocando los Atributos del personaje
-		
+		Human Humano = new Human();
 		for(int i=0;i<=6;i++) {
 			Humano.SPECIAL[i]=0;
 		}
@@ -33,11 +44,15 @@ public class Main {
 		
 		
 		//HUD del personaje
-		Humano.Armor_list.add(new Armor("Traje de Vaul-Tec (111)",1,1,1,3));
 		Humano.Max_Weigh=50+ (10*Humano.SPECIAL[0]);
 		Humano.Max_Health=100 + (10*Humano.SPECIAL[2]);
 		Humano.Health=100 + (10*Humano.SPECIAL[2]);
 		Humano.Rad=0;
-		Human.HUD(Humano);
+		Humano.Position_x=0;
+		Humano.Position_y=0;
+		Human.Game(Humano);
+		if(Main.gameOver){System.out.println("-------------------- GAME OVER --------------------");}
+		if(Main.endGame) {System.out.println("-------------------- GANASTE --------------------");}
+		
 	}
 }

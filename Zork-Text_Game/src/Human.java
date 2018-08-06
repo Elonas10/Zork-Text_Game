@@ -2,19 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Human implements Visitor {
-	double Health;
-	double Max_Health;
-	double Rad;
-	int Max_Weigh;
-	int Xp;
-	int FisicDefense;
-	int EnergyDefense;
-	int RadDefense;
-	int FisicAmmo;
-	int EnergyAmmo;
-	int RadAmmo;
-	int NukaAmmo;
-	int FusionCoreAmmo;
+	double Health,Max_Health,Rad;
+	int Max_Weigh,Xp,FisicAmmo,EnergyAmmo,RadAmmo,NukaAmmo,FusionCoreAmmo,Position_x,Position_y;
+	Gun equippedGun;
+	Armor equippedArmor;
+	Box Myposition;
 	int SPECIAL[]= new int[7];
 	ArrayList<Entity> Gun_list= new ArrayList<Entity>();
 	ArrayList<Entity> Armor_list= new ArrayList<Entity>();
@@ -267,7 +259,10 @@ public class Human implements Visitor {
 	}
 	
 	public double applyRad(double Max_H,double Rad) {
-		Max_H = Max_H-Rad;
+		if(this.Rad<0) {
+			this.Rad=0;
+		}
+		this.Max_Health = Max_H-Rad;
 		if(this.Health>Max_H) {
 			this.Health=Max_H;
 			return this.Health;
@@ -277,26 +272,60 @@ public class Human implements Visitor {
 	}
 	}
 	
-	public static void HUD(Human Humano) {
+	public static void Game(Human Humano) {
+		Map Mapa=new Map();
+		Mapa.createMap();
 		Scanner a= new Scanner(System.in);
 		int option;
-		int ciclo=1;
-		Gun Puños =new Gun("Puños",5+(5*Humano.SPECIAL[0]),0,0,0,0,0,0,0,0);
+		Main.gameOver=false;
+		Main.endGame=false;
+		Gun Puños =new Gun("Puños",5+(1*Humano.SPECIAL[0]),0,0,0,0,0,0,0,0);
+		Gun StartGun =new Gun("Pistola de tubo",6,0,0,1,0,0,0,0,3);
+		Armor StartArmor=(new Armor("Traje de Vaul-Tec (111)",0,0,1,3));
 		Humano.Gun_list.add(Puños);
+		Humano.Gun_list.add(StartGun);
+		Humano.Armor_list.add(StartArmor);
+		Humano.equippedGun=StartGun;
+		Humano.equippedArmor=StartArmor;
+		Humano.FisicAmmo=100;
+		Humano.EnergyAmmo=50;
+		Humano.RadAmmo=50;
 		do {
-		Puños.setDmg(5+(5*Humano.SPECIAL[0]));
+		Puños.setDmg(5+(1*Humano.SPECIAL[0]));
 		Humano.Max_Weigh=50+ (10*Humano.SPECIAL[0]);
 		Humano.Max_Health=100 + (10*Humano.SPECIAL[2]);
+		
+       
 		System.out.println("-----------------------------------------------------------------");
-		System.out.println("Salud:" + (int)Humano.applyRad(Humano.Max_Health,Humano.Rad)+"/"+(int)Humano.Max_Health+"      Radiacion:"+(int)Humano.Rad+"      Peso:"+Humano.TotalWeigh()+"/"+Humano.Max_Weigh+"      S.P.E.C.I.A.L:("+Humano.SPECIAL[0]+","+Humano.SPECIAL[1]+","+Humano.SPECIAL[2]+","+Humano.SPECIAL[3]+","+Humano.SPECIAL[4]+","+Humano.SPECIAL[5]+","+Humano.SPECIAL[6]+")");
+		System.out.println("Salud:" + (int)Humano.applyRad(Humano.Max_Health,Humano.Rad)+"/"+(int)Humano.Max_Health+"      Radiacion:"+(int)Humano.Rad+"      Peso:"+Humano.TotalWeigh()+"/"+Humano.Max_Weigh+"      S.P.E.C.I.A.L:("+Humano.SPECIAL[0]+","+Humano.SPECIAL[1]+","+Humano.SPECIAL[2]+","+Humano.SPECIAL[3]+","+Humano.SPECIAL[4]+","+Humano.SPECIAL[5]+","+Humano.SPECIAL[6]+")"+"Xp:"+Humano.Xp+"/100");
+		System.out.println("");
+		if(Humano.equippedGun==null){Humano.equippedGun=Puños;}
+		System.out.println("Daño: (Fisico:"+Humano.equippedGun.getFisicDmg()+" Energia:"+Humano.equippedGun.getEnergyDmg()+" Radiacion:"+Humano.equippedGun.getRadDmg()+")  Municion: (Balas:"+Humano.FisicAmmo+" Celdas de energia:"+Humano.EnergyAmmo+" Cartuchos Gamma:"+Humano.RadAmmo+" Mini-Bombas Nucleares:"+Humano.NukaAmmo+" Nucleo de Fusion:"+Humano.FusionCoreAmmo+")");
+		
+		System.out.println("");
+		if(Humano.equippedArmor!=null) {
+		System.out.println("Resistencia: (Fisica:"+Humano.equippedArmor.getFisicDefend()+" Energia:"+Humano.equippedArmor.getEnergyDefend()+" Radiacion:"+Humano.equippedArmor.getRadDefend()+")");
+		}
 		System.out.println("");
 		System.out.println("1.Inventario");
 		System.out.println("");
+		System.out.println("2.Equipar Arma");
+		System.out.println("");
+		System.out.println("3.Equipar Armadura");
+		System.out.println("");
+		System.out.println("4.Usar consumible");
+		System.out.println("");
+		System.out.println("5.Tirar Objeto");
+		System.out.println("");
+		if(Humano.Xp>=100) {
+			System.out.println("**10.Subir de nivel**");
+		}
+		System.out.println("");
 		System.out.println("Moverse:");
-		System.out.println("  2.Arriba");
-		System.out.println("  3.Abajo");
-		System.out.println("  4.Derecha");
-		System.out.println("  5.Izquierda");
+		System.out.println("  6.Arriba");
+		System.out.println("  7.Abajo");
+		System.out.println("  8.Derecha");
+		System.out.println("  9.Izquierda");
 		option=a.nextInt();
 		switch(option){
 		case 1:
@@ -311,7 +340,7 @@ public class Human implements Visitor {
 			option=a.nextInt();
 			switch(option) {
 			case 0:
-				ciclo=1;
+				System.out.println("VOLVER AL MENU");
 				break;
 				
 			case 1:
@@ -324,7 +353,7 @@ public class Human implements Visitor {
 						option=a.nextInt();
 	
 				if(option==0) {
-					ciclo=1;
+					System.out.println("VOLVER AL MENU");
 				}
 					else if(option==-1) {
 					Humano.showAllGun();
@@ -348,7 +377,7 @@ public class Human implements Visitor {
 						System.out.println("Elige una armadura para ver su detalle:");
 						option=a.nextInt();
 					if(option==0) {
-						ciclo=1;
+						
 					}
 				else if(option==-1) {
 					Humano.showAllArmor();
@@ -372,7 +401,7 @@ public class Human implements Visitor {
 						System.out.println("Elige un consumible para ver su detalle:");
 						option=a.nextInt();
 					if(option==0) {
-						ciclo=1;
+						
 					}
 				else if(option==-1) {
 					Humano.showAllAdd();
@@ -390,8 +419,171 @@ public class Human implements Visitor {
 					System.out.println("Elige una opcion valida");
 					break;
 				}
+			
+		case 2: 
+			System.out.println("Arma equipada: "+"("+Humano.equippedGun.getName()+")");
+			Humano.showGunNames();
+			System.out.println("Cual arma desea elegir:");
+			option=a.nextInt();
+			Humano.changeGun((Gun) Humano.Gun_list.get(option-1), Humano);
+			break;
+		case 3:
+			System.out.println("Armadura equipada: "+"("+Humano.equippedArmor.getName()+")");
+			Humano.showArmorNames();
+			System.out.println("Cual armadura desea elegir:");
+			option=a.nextInt();
+			Humano.changeArmor((Armor)Humano.Armor_list.get(option-1), Humano);
+			break;
+		case 4: 
+			if(Humano.Add_list.isEmpty()) {
+				System.out.println("No tienes ningun consumible");
 			}
-		}while(ciclo==1);		
+			else {
+			Humano.showAddNames();
+			System.out.println("Cual consumible desea usar:");
+			option=a.nextInt();
+			Humano.useAdd((Add)Humano.Add_list.get(option-1),Humano);
+			Humano.Add_list.remove(option-1);
+			}
+			break;
+		case 5:
+			System.out.println("Si tiras un objeto desaparecera");
+			System.out.println("Que tipo de objeto quiere lanzar:");
+			System.out.println(" 0.Volver");
+			System.out.println(" 1.Arma");
+			System.out.println(" 2.Amadura");
+			System.out.println("Que tipo de objeto quiere lanzar:");
+			option=a.nextInt();
+			if(option==0) {
+				System.out.println("VOLVER AL MENU");
+			}
+			else if(option==1) {
+				System.out.println("Que Arma desea lanzar:");
+				System.out.println("0-Volver");
+				Humano.showGunNames();
+				option=a.nextInt();
+				if(option==0) {
+					System.out.println("VOLVER AL MENU");
+				}
+				else if(Humano.Gun_list.get(option-1)==Humano.equippedGun){
+					System.out.println("No puedes lanzar una arma que tienes equipada");
+				}
+				else {
+				Humano.Gun_list.remove(option-1);
+				}
+				if(option==1) {
+					Main.gameOver=true;
+					System.out.println("Mueres desangrado por quitarte tus puños");
+				}
+			}
+			else if(option==2) {
+				System.out.println("Que Armadura desea lanzar:");
+				System.out.println("0-Volver");
+				Humano.showArmorNames();
+				option=a.nextInt();
+				if(option==0) {
+					System.out.println("VOLVER AL MENU");
+				}
+				else if(Humano.Armor_list.get(option-1)==Humano.equippedArmor){
+					System.out.println("No puedes lanzar una armadura que tienes equipada");
+				}
+				else {
+				Humano.Armor_list.remove(option-1);
+				}
+			}
+			break;
+		case 6:
+			if(Humano.TotalWeigh()>=Humano.Max_Weigh) {
+				System.out.println("Tienes demasiado peso, tira algunas cosas de tu inventario");
+			}
+			else {
+			if(Humano.Position_y+1==Main.Y) {
+				System.out.println("Te das cuenta que el camino que elegiste te lleva a un lugar lleno de radiacion y animales mutados, asi que decides regresar");
+			}
+			else {
+			Humano.Position_y++;
+			}
+			}
+			 Humano.Myposition=Mapa.getBox(Humano.Position_x, Humano.Position_y);
+		     Humano = Humano.Myposition.accept(Humano);
+			break;
+			
+		case 7:
+			if(Humano.TotalWeigh()>=Humano.Max_Weigh) {
+				System.out.println("Tienes demasiado peso, tira algunas cosas de tu inventario");
+			}
+			else {
+			if(Humano.Position_y-1==-1) {
+				System.out.println("Te das cuenta que el camino que elegiste te lleva a un lugar lleno de radiacion y animales mutados, asi que decides regresar");
+			}
+			else {
+			Humano.Position_y--;
+			}
+			}
+			 Humano.Myposition=Mapa.getBox(Humano.Position_x, Humano.Position_y);
+		     Humano = Humano.Myposition.accept(Humano);
+			break;
+			
+		
+		case 8:
+			if(Humano.TotalWeigh()>=Humano.Max_Weigh) {
+				System.out.println("Tienes demasiado peso, tira algunas cosas de tu inventario");
+			}
+			else {
+			if(Humano.Position_x+1==Main.X) {
+				System.out.println("Te das cuenta que el camino que elegiste te lleva a un lugar lleno de radiacion y animales mutados, asi que decides regresar");
+			}
+			else {
+			Humano.Position_x++;
+			}
+			}
+			 Humano.Myposition=Mapa.getBox(Humano.Position_x, Humano.Position_y);
+		     Humano = Humano.Myposition.accept(Humano);
+			break;
+			
+		
+		case 9:
+			if(Humano.TotalWeigh()>=Humano.Max_Weigh) {
+				System.out.println("Tienes demasiado peso, tira algunas cosas de tu inventario");
+			}
+			else {
+			if(Humano.Position_x-1==-1) {
+			System.out.println("Te das cuenta que el camino que elegiste te lleva a un lugar lleno de radiacion y animales mutados, asi que decides regresar");
+			}
+			else {
+			Humano.Position_x--;
+			}
+			}
+			 Humano.Myposition=Mapa.getBox(Humano.Position_x, Humano.Position_y);
+		     Humano = Humano.Myposition.accept(Humano);
+			break;
+		case 10:
+			if(Humano.Xp>=100) {
+				System.out.println("Cual atributo desea subir de nivel:");
+				System.out.println("1-Fuerza");
+				System.out.println("2-Percepcion");
+				System.out.println("3-Resistencia");
+				System.out.println("4-Carisma");
+				System.out.println("5-Inteligencia");
+				System.out.println("6-Agilidad");
+				System.out.println("7-Suerte");
+				option=a.nextInt();
+				if(option==1) {Humano.SPECIAL[0]=Humano.SPECIAL[0]+1;}
+				else if(option==2) {Humano.SPECIAL[1]=Humano.SPECIAL[1]+1;}
+				else if(option==3) {Humano.SPECIAL[2]=Humano.SPECIAL[2]+1;}
+				else if(option==4) {Humano.SPECIAL[3]=Humano.SPECIAL[3]+1;}
+				else if(option==5) {Humano.SPECIAL[4]=Humano.SPECIAL[4]+1;}
+				else if(option==6) {Humano.SPECIAL[5]=Humano.SPECIAL[5]+1;}
+				else if(option==7) {Humano.SPECIAL[6]=Humano.SPECIAL[6]+1;}
+			}
+			else {
+				System.out.println("No tienes suficientes puntos de experiencia");
+			}
+				break;
+			}
+		if(Humano.Health<=0) {Main.gameOver=true;}
+		if(Mapa.getBox(Main.X-1, Main.Y-1).getEnemy()==null) {Main.endGame=true;}
+		}while(Main.endGame==false && Main.gameOver==false);		
 	}
 	
 	public static void SPECIAL(Human Humano) {
@@ -406,7 +598,7 @@ public class Human implements Visitor {
 			 System.out.println("");
 		    System.out.println("Cada Atributo tiene un maximo de 10 puntos");
 		    System.out.println("");
-			System.out.println("   1- FUERZA (" + Humano.SPECIAL[0] +"): La FUERZA hace que puedas llevar mas cosas contigo (+10 al Peso Maximo por nivel) \n   y causas mas daño con tus puños ( +2 al daño de los puños por nivel)");
+			System.out.println("   1- FUERZA (" + Humano.SPECIAL[0] +"): La FUERZA hace que puedas llevar mas cosas contigo (+10 al Peso Maximo por nivel) \n   y causas mas daño con tus puños ( +1 al daño de los puños por nivel)");
 			System.out.println("");
 			System.out.println("   2- PERCEPCION (" + Humano.SPECIAL[1] +"): Mientras mas PERCEPCION tengas mas facil es encontrar objetos en el yermo(+0.05% de encontrar objetos por nivel)");
 			System.out.println("");
@@ -564,9 +756,400 @@ public class Human implements Visitor {
 		}while(Lvs >0);
 	}
 
-
+	@Override
 	public Human visit(Box box, Human Humano) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean Found=Humano.foundObject(Humano);
+		
+		if(box.getEnemy()==null && Found==false) {
+			System.out.println("No encontraste nada");
+		}
+		
+		if(box.getEnemy()!=null) {
+			Humano.Fight(Humano,(Enemy)box.getEnemy());
+			Enemy E=(Enemy)box.getEnemy();
+			Humano.Xp=Humano.Xp+E.getXp()+2*Humano.SPECIAL[4];
+			if(Humano.Health>0) {box.setEnemy(null);}
+		}
+		
+		if(box.getArmor()!=null && Found==true){
+			Scanner a=new Scanner(System.in);
+			Armor A=(Armor)box.getArmor();
+			System.out.println("Encontraste una armadura!");
+			System.out.println("----------------------------");
+			System.out.println("");
+			System.out.println("  " + A.getName());
+			System.out.println("");
+			System.out.println("Resistencia:");
+			System.out.println("  Fisico: "+A.getFisicDefend());
+			System.out.println("  Energia: "+A.getEnergyDefend());
+			System.out.println("  Radiacion: "+A.getRadDefend());
+			System.out.println("");
+			System.out.println("Peso: "+A.getWeigh());
+			System.out.println("----------------------------");
+			System.out.print("Agarrar Armadura: 0.No 1.Si");
+			int option = a.nextInt();
+			if(option==0) {
+				box.setArmor(A);
+			}
+			if(option==1) {
+				Humano.Armor_list.add(A);
+				box.setArmor(null);
+			}
+		}
+		if(box.getGun()!=null && Found==true){
+			Scanner a=new Scanner(System.in);
+			Gun G=(Gun)box.getGun();
+			System.out.println("Encontraste una arma!");
+			System.out.println("----------------------------");
+			System.out.println("  " + G.getName());
+			System.out.println("");
+			System.out.println("Daño:");
+			System.out.println("  Fisico: " + G.getFisicDmg());
+			System.out.println("  Energia: " + G.getEnergyDmg());
+			System.out.println("  Radiacion: " + G.getRadDmg());
+			System.out.println("");
+			System.out.println("Peso: "+G.getWeigh());
+			System.out.println("----------------------------");
+			System.out.println("Agarrar Arma: 0.No  1.Si");
+			int option = a.nextInt();
+			if(option==0) {
+				box.setGun(G);
+			}
+			if(option==1) {
+				Humano.Gun_list.add(G);
+				box.setGun(null);
+			}
+		}
+		if(box.getAdd()!=null && Found==true){
+			Scanner a=new Scanner(System.in);
+			Add Ad=(Add)box.getAdd();
+			System.out.println("Encontraste un consumible!");
+			System.out.println("----------------------------");
+			System.out.println("");
+			System.out.println("  " + Ad.getName());
+			System.out.println("");
+			if(Ad.getCureH()!=0) {
+				System.out.println("  Cura "+Ad.getCureH()+" puntos de salud");
+			}
+			if(Ad.getCureR()!=0) {
+				System.out.println("  Cura "+Ad.getCureR()+" puntos de Radiacion");
+			}
+			if(Ad.getRad()!=0) {
+				System.out.println("  Te da "+Ad.getRad()+" puntos de Radiacion");
+			}
+			if(Ad.getS()!=0) {
+				System.out.println("  Te da "+Ad.getS()+" punto de Fuerza");
+			}
+			if(Ad.getP()!=0) {
+				System.out.println("  Te da "+Ad.getP()+" punto de Percepcion");
+			}
+			if(Ad.getE()!=0) {
+				System.out.println("  Te da "+Ad.getE()+" punto de Resistencia");
+			}
+			if(Ad.getC()!=0) {
+				System.out.println("  Te da "+Ad.getC()+" punto de Carisma");
+			}
+			if(Ad.getI()!=0) {
+				System.out.println("  Te da "+Ad.getI()+" punto de Inteligencia");
+			}
+			if(Ad.getA()!=0) {
+				System.out.println("  Te da "+Ad.getA()+" punto de Agilidad");
+			}
+			if(Ad.getL()!=0) {
+				System.out.println("  Te da "+Ad.getL()+" punto de Suerte");
+			}
+			System.out.println("----------------------------");
+			
+				Humano.Add_list.add(Ad);
+				box.setAdd(null);
+			
+		}
+		if((box.getFAmmo()!=0 || box.getEAmmo()!=0 || box.getRAmmo()!=0) && Found==true) {
+			System.out.println("Encontraste una caja de muncion!");
+			Humano.FisicAmmo=Humano.FisicAmmo + box.getFAmmo();
+			Humano.EnergyAmmo=Humano.EnergyAmmo + box.getEAmmo();
+			Humano.RadAmmo=Humano.RadAmmo+ box.getRAmmo();
+			box.setFAmmo(0);
+			box.setEAmmo(0);
+			box.setRAmmo(0);
+		}
+		if(box.getNAmmo()!=0 && Found==true) {
+			System.out.println("Encontraste una Mini-Bomba nuclear!");
+			Humano.NukaAmmo=Humano.NukaAmmo + box.getNAmmo();
+			box.setNAmmo(0);
+		}
+		if(box.getFCAmmo()!=0 && Found==true) {
+			System.out.println("Encontraste un Nucleo de Fusion !");
+			Humano.FusionCoreAmmo=Humano.FusionCoreAmmo + box.getFCAmmo();
+			box.setFCAmmo(0);
+		}
+		return Humano;
+	}
+	
+	public void Fight(Human Humano,Enemy Enemigo) {
+		Scanner a=new Scanner(System.in);
+		int option;
+		System.out.println("Haz encontrado a un Enemigo: " + Enemigo.getName());
+		System.out.println("Descripcion: " + Enemigo.getDescription());
+		boolean Huir = false;
+		do {
+			System.out.println("El enemigo tiene: "+Enemigo.getHealth()+" puntos de vida");
+			System.out.println("-----------------------------------");
+			System.out.println("");
+			System.out.println("Que quieres hacer:");
+			System.out.println(" 1.Atacar");
+			System.out.println(" 2.Cambiar arma");
+			System.out.println(" 3.Usar consumible");
+			System.out.println(" 4.Cambiar armadura");
+			System.out.println(" 5.Huir");
+			System.out.println("OPCION:");
+			option=a.nextInt();
+			switch(option) {
+			
+			case 1: 
+				if(Humano.equippedGun.getFisicAmmoCost()<=Humano.FisicAmmo && Humano.equippedGun.getEnergyAmmoCost()<=Humano.EnergyAmmo && Humano.equippedGun.getRadAmmoCost()<= Humano.RadAmmo && Humano.equippedGun.getNukeCost()<=Humano.NukaAmmo&& Humano.equippedGun.getFusionCoreCost()<=Humano.FusionCoreAmmo) {
+					if(Humano.critic(Humano)) {
+						System.out.println("Diste un golpe critico");
+						Enemigo.setHealth(2*((Humano.totalDmg(equippedGun)*0.1*Humano.SPECIAL[5])+Humano.totalDmg(equippedGun)));
+					}
+					else {
+						Enemigo.setHealth((Humano.totalDmg(equippedGun)*0.1*Humano.SPECIAL[5])+Humano.totalDmg(equippedGun));
+					}
+					Humano.FisicAmmo=Humano.FisicAmmo-Humano.equippedGun.getFisicAmmoCost();
+					Humano.EnergyAmmo=Humano.EnergyAmmo-Humano.equippedGun.getEnergyAmmoCost();
+					Humano.RadAmmo=Humano.RadAmmo-Humano.equippedGun.getRadAmmoCost();
+					Humano.NukaAmmo=Humano.NukaAmmo-Humano.equippedGun.getNukeCost();
+					Humano.FusionCoreAmmo=Humano.FusionCoreAmmo-Humano.equippedGun.getFusionCoreCost();
+				}
+				else {
+					System.out.println("");
+					System.out.println("No tienes suficientes municion para usar esta arma");
+					System.out.println("");
+				}
+			break;
+			
+			case 2: 
+			System.out.println("Arma equipada: "+"("+Humano.equippedGun.getName()+")");
+			Humano.showGunNames();
+			System.out.println("Cual arma desea elegir:");
+			option=a.nextInt();
+			Humano.changeGun((Gun) Humano.Gun_list.get(option-1), Humano);
+			break;
+			
+			case 3: 
+				if(Humano.Add_list.isEmpty()) {
+					System.out.println("No tienes ningun consumible");
+				}
+				else {
+				Humano.showAddNames();
+				System.out.println("Cual consumible desea usar:");
+				option=a.nextInt();
+				Humano.useAdd((Add)Humano.Add_list.get(option-1),Humano);
+				Humano.Add_list.remove(option-1);
+				}
+				break;
+				
+			case 4:
+				System.out.println("Armadura equipada: "+"("+Humano.equippedArmor.getName()+")");
+				Humano.showArmorNames();
+				System.out.println("Cual armadura desea elegir:");
+				option=a.nextInt();
+				Humano.changeArmor((Armor)Humano.Armor_list.get(option-1), Humano);
+				break;
+			
+			case 5:
+				Huir=Humano.run(Humano);
+				if(Huir) {
+					System.out.println("Lograste huir de la batalla contra: "+Enemigo.getName());
+				}
+				else{
+					System.out.println("No podras escapar tan facil");
+					Huir=false;
+				}
+				break;
+
+			default:
+				System.out.println("Esa opcion no existe,ahora te jodei piazo de marico te van a dar tremendo coñazo por sapo");
+				break;
+			    }
+			if(Enemigo.getHealth()>0 && Huir==false){Humano.EnemyAttack(Enemigo, Humano);}
+			
+		}while(Enemigo.getHealth()>0 && Humano.Health>0 && Huir==false);
+		if(Enemigo.getHealth()<=0) {System.out.println("Ganaste la Batalla");}
+		if(Humano.Health<=0) {System.out.println("Moriste");}
+	}
+	
+	public void changeGun(Gun Gun,Human Humano) {
+		Humano.equippedGun=Gun;
+	}
+	
+	public void changeArmor(Armor Armor,Human Humano) {
+		Humano.equippedArmor=Armor;
+	}
+	
+	public void EnemyAttack(Enemy Enemigo,Human Humano) {
+		Humano.Health= Humano.Health - Humano.totalEnemyDamage(Enemigo,Humano);
+		double Rad= 0.5*Enemigo.getRadDmg();
+		Humano.Rad=Humano.Rad+Rad;
+		System.out.println("'"+Enemigo.getName()+"' te infligio: "+Humano.totalEnemyDamage(Enemigo,Humano)+" puntos de daño");
+		System.out.println("Tienes: "+Humano.Health+" puntos de salud");
+	}
+	
+	public int totalEnemyDamage(Enemy Enemigo,Human Humano) {
+		int F=Enemigo.getFisicDmg() -Humano.equippedArmor.getFisicDefend();
+		int E=Enemigo.getEnergyDmg() -Humano.equippedArmor.getEnergyDefend();
+		int R=Enemigo.getRadDmg() -Humano.equippedArmor.getRadDefend();
+		if(F<0) {F=0;}
+		if(E<0) {E=0;}
+		if(R<0) {R=0;}
+		return F+E+R;
+	}
+	
+	public void useAdd(Add add,Human Humano) {
+	 Humano.Health=Humano.Health+add.getCureH();
+	 Humano.Rad= -add.getCureR() +add.getRad();
+	 Humano.applyRad(Humano.Max_Health, Humano.Rad);
+	 Humano.SPECIAL[0]=Humano.SPECIAL[0] + add.getS();
+	 Humano.SPECIAL[1]=Humano.SPECIAL[1]+add.getP();
+	 Humano.SPECIAL[2]=Humano.SPECIAL[2]+add.getE();
+	 Humano.SPECIAL[3]=Humano.SPECIAL[3]+add.getC();
+	 Humano.SPECIAL[4]=Humano.SPECIAL[4]+add.getI();
+	 Humano.SPECIAL[5]=Humano.SPECIAL[5]+add.getA();
+	 Humano.SPECIAL[6]=Humano.SPECIAL[6]+add.getL();
+	 
+	}
+	
+	public boolean foundObject(Human Humano) {
+		int option;
+		option= (int)Math.round(Math.random()*19);
+		if(option>=0 && option<=9) {
+			return true;
+		}
+		else if(option==10) {
+			if(Humano.SPECIAL[1]>=1) {return true;}
+			else {return false;}
+		}
+		else if(option==11) {
+			if(Humano.SPECIAL[1]>=2) {return true;}
+			else {return false;}
+		}
+		else if(option==12) {
+			if(Humano.SPECIAL[1]>=3) {return true;}
+			else {return false;}
+		}
+		else if(option==13) {
+			if(Humano.SPECIAL[1]>=4) {return true;}
+			else {return false;}
+		}
+		else if(option==14) {
+			if(Humano.SPECIAL[1]>=5) {return true;}
+			else {return false;}
+		}
+		else if(option==15) {
+			if(Humano.SPECIAL[1]>=6) {return true;}
+			else {return false;}
+		}
+		else if(option==16) {
+			if(Humano.SPECIAL[1]>=7) {return true;}
+			else {return false;}
+		}
+		else if(option==17) {
+			if(Humano.SPECIAL[1]>=8) {return true;}
+			else {return false;}
+		}
+		else if(option==18) {
+			if(Humano.SPECIAL[1]>=9) {return true;}
+			else {return false;}
+		}
+		else if(option==19) {
+			if(Humano.SPECIAL[1]>=10) {return true;}
+			else {return false;}
+		}
+		else {return false;}
+	}
+	
+	public int totalDmg(Gun gun) {
+		return gun.getFisicDmg()+gun.getEnergyDmg()+gun.getRadDmg();
+	}
+	
+	public boolean run(Human Humano) {
+		int option;
+		option= (int)Math.round(Math.random()*9);
+		if(Humano.SPECIAL[3]==0) {
+			return false;
+		}
+		else if(option==0) {
+			if(Humano.SPECIAL[3]>=1) {return true;}
+			else {return false;}
+		}
+		else if(option==1) {
+			if(Humano.SPECIAL[3]>=2) {return true;}
+			else {return false;}
+		}
+		else if(option==2) {
+			if(Humano.SPECIAL[3]>=3) {return true;}
+			else {return false;}
+		}
+		else if(option==3) {
+			if(Humano.SPECIAL[3]>=4) {return true;}
+			else {return false;}
+		}
+		else if(option==4) {
+			if(Humano.SPECIAL[3]>=5) {return true;}
+			else {return false;}
+		}
+		else if(option>=5){
+			return false;
+		}
+		else{return false;}
+	}
+	
+	public boolean critic(Human Humano) {
+		int option;
+		option= (int)Math.round(Math.random()*9);
+		if(Humano.SPECIAL[6]==0) {
+			return false;
+		}
+		else if(option==0) {
+			if(Humano.SPECIAL[6]>=1) {return true;}
+			else {return false;}
+		}
+		else if(option==1) {
+			if(Humano.SPECIAL[6]>=2) {return true;}
+			else {return false;}
+		}
+		else if(option==2) {
+			if(Humano.SPECIAL[6]>=3) {return true;}
+			else {return false;}
+		}
+		else if(option==3) {
+			if(Humano.SPECIAL[6]>=4) {return true;}
+			else {return false;}
+		}
+		else if(option==4) {
+			if(Humano.SPECIAL[6]>=5) {return true;}
+			else {return false;}
+		}
+		else if(option==5) {
+			if(Humano.SPECIAL[6]>=6) {return true;}
+			else {return false;}
+		}
+		else if(option==6) {
+			if(Humano.SPECIAL[6]>=7) {return true;}
+			else {return false;}
+		}
+		else if(option==7) {
+			if(Humano.SPECIAL[6]>=8) {return true;}
+			else {return false;}
+		}
+		else if(option==8) {
+			if(Humano.SPECIAL[6]>=9) {return true;}
+			else {return false;}
+		}
+		else if(option==9) {
+			if(Humano.SPECIAL[6]>=10) {return true;}
+			else {return false;}
+		}
+		else {return false;}
 	}
 }

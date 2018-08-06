@@ -10,7 +10,7 @@ public class Attributes {
 	   else if(option==11 || option==12 || option==25) {return new Gun("Pistola laser",0,10,0,0,1,0,0,0,4);}
 	   else if(option==13 || option==14 || option==28) {return new Gun("Rifle laser",0,25,0,0,5,0,0,0,10);}
 	   else if(option==15 || option==16 || option==29) {return new Gun("Mosquete Laser",0,50,0,0,10,0,0,0,5);}
-	   else if(option==0 || option==18) {return new Gun("Ametralladora Laser",0,150,0,0,0,0,0,1,25);}
+	   else if(option==0 || option==18) {return new Gun("Ametralladora Laser",0,200,0,0,0,0,0,1,25);}
 	   else if(option==19 || option==20 || option==26) {return new Gun("Pistola Gamma",0,0,15,0,0,1,0,0,15);}
 	   else if(option==21 || option==22) {return new Gun("Rifle Gamma",0,0,25,0,0,5,0,0,10);}
 	   else if(option==23 || option==24) {return new Gun("Rifle de Plasma",25,25,25,5,5,5,0,0,15);}
@@ -34,24 +34,24 @@ public class Attributes {
 	}
 	public static Enemy randomEnemy() {
 		int option= (int)Math.round(Math.random()*35);
-		if(option==1 || option==2 || option==3 || option==4) {return new Enemy("Saqueador",10,8,0,0,3,0,1,1,"'Humano con los instintos de un animal,solo vive para matar y robar' /nDebil contra las armas de radiacion y de energia");}
-		else if(option==5 || option==6 || option==7 || option==8) {return new Enemy("Mutaracha",5,5,0,0,2,1,0,0,"'Cucaracha que muto por la radiacion del yermo,ahora es una criatura /ndel tamaño de un perro que lo unico que quiere es comer'/nDebil contra las armas Fisicas");}
-		else if(option==9 || option==10 || option==11 || option==12) {return new Enemy("Flotador",5,0,0,5,3,1,0,0,"'Mosca gigante,escupe una sustancia muy radioactiva'/nDebil contra las armas Fisicas");}
-		else if(option==13 || option==14 || option==15) {return new Enemy("Artillero",20,10,0,0,5,0,1,1,"'Humano que pertenece a la faccion de los 'Artilleros', una faccion de mercenarios organizada del yermo /nmuchas veces matan a otras personas para quitarle sus cosas o para practicar su punteria'/nDebil contra las armas de radiacion y de energia");}
-		else if(option==16 || option==17 || option==18) {return new Enemy("Necrofago",20,5,0,5,6,1,0,0,"'Zombies del yermo que una vez fueron humanos, la radiacion les causo /ndeformaciones en el cuerpo y perder su uso de razon,contienen mucha radiacion en sus cuerpos, cuando ve un ser vivo lo ataca para comerselo'/nDebil contra las armas Fisicas");}
-		else if(option==19 || option==20 || option==21) {return new Enemy("Saqueador Veterano",25,10,0,0,7,0,1,1,"'Saqueador experimentado del yermo, ha pasado por tantas matansas y saqueos que se ha convertido en una maquina de matar'/nDebil contra las armas de radiacion y de energia");}
-		else if(option==22 || option==23 || option==24) {return new Enemy("Protectron",20,10,12,0,8,1,0,0,"Robot creado antes de la gran guerra para servir a la humanidad,con el paso de los años/ny la radiacion afecto a su sistema, ahora solo mata lo que ve /nDebil contra las armas Fisicas");}
-		else if(option==25 || option==26) {return new Enemy("Super Mutante",30,15,0,0,10,0,1,0,"Humano que fue mutado geneticamente por el virus V.E.F,Ahora es una masa de puro musculo y sin cerebro,Esta raza se cree superior a las demas,para el tu eres otra mutaracha mas /nDebil contra las armas de Energia");}
-		else if(option==27 || option==28) {return new Enemy("Synth",30,0,15,0,10,1,0,0,"Androide creado por una organizacion misteriosa del yermo, estos androides/n matan o capturan por ordenes de sus creadores/nDebil contra las armas Fisicas");}
-		else if(option==27 || option==28) {return new Enemy("Lider Saqueador",35,0,15,0,14,0,0,0,"Saqueador muy poderoso que es lider de bandas de saqueadores /nNo tiene Ninguna debilidad");}
-		else if(option==27 || option==28) {return new Enemy("Hijo del atomo",35,0,0,15,14,0,0,0,"Humano que pertenece a la faccion del 'Atomo', creen que la /nradiacion es una bendicion y que los va a salvar de la muerte,si no eres de su faccion eres un enemigo para ellos /nNo tiene Ninguna debilidad");}
-		else if(option==29 || option==30) {return new Enemy("Mirelurk",50,10,0,0,14,0,0,0,"Cangrejo mutado por la radiacion, posee un caparazon que lo hace resistente contra todo tipo de armas /nNo tiene ninguna debilidad");}
-		else if(option==31) {return new Enemy("Soldado del Enclave",50,10,10,0,20,0,0,0,"??????");}
-		else if(option==32) {return new Enemy("Lider Artillero",40,10,10,0,18,0,0,0,"Lider de un escuadron de artilleros,han quitato incontables vidas y no le tienen miedo a nada/nNo tiene ninguna debilidad");}
-		else if(option==33) {return new Enemy("Asaltron",50,0,20,0,20,0,0,20,"Robot creado para propositos militares, al igual que los protectrones,no tienen razon de ser alguna solo destruir la vida/nNo tiene ninguna debilidad");}
-		else if(option==34) {return new Enemy("Yao-Guai",60,10,0,10,18,0,0,25,"Oso sin pelo que casi a duplicado su tamaño debido a la radiacion/nNo tiene ninguna debilidad");}
-		else if(option==0) {return new Enemy("Sanguinario",100,30,0,0,30,1,0,0,"Lagartija que muto por efecto de la radiacion del yermo,ahora es practicamente/n un dinosaurio en vida,son extremadamente salvajes y sedientos de sangre/nDebilidad contra las armas Fisicas");}
-		else if(option==35) {return new Enemy("Behemoth",150,20,0,0,40,0,0,0,"Los Behemoths son los titanes del yermo, son criaturas que vienen de la especie de los supermutantes, pero estos miden 5 metros de altura, si uno te ve lo mas probable es que mueras/nNo tiene ninguna debilidad");}
+		if(option==1 || option==2 || option==3 || option==4) {return new Enemy("Saqueador",10,8,0,0,3,"Humano con los instintos de un animal,solo vive para matar y robar");}
+		else if(option==5 || option==6 || option==7 || option==8) {return new Enemy("Mutaracha",5,5,0,0,2,"Cucaracha que muto por la radiacion del yermo,ahora es una criatura del tamaño de un perro que lo unico que quiere es comer");}
+		else if(option==9 || option==10 || option==11 || option==12) {return new Enemy("Flotador",5,0,0,5,3,"Mosca gigante,escupe una sustancia muy radioactiva");}
+		else if(option==13 || option==14 || option==15) {return new Enemy("Artillero",20,10,0,0,5,"Humano que pertenece a la faccion de los 'Artilleros', una faccion de mercenarios organizada del yermo muchas veces matan a otras personas para quitarle sus cosas o para practicar su punteria");}
+		else if(option==16 || option==17 || option==18) {return new Enemy("Necrofago",20,5,0,5,6,"Zombies del yermo que una vez fueron humanos, la radiacion les causo deformaciones en el cuerpo y perder su uso de razon,contienen mucha radiacion en sus cuerpos, cuando ve un ser vivo lo ataca para comerselo");}
+		else if(option==19 || option==20 || option==21) {return new Enemy("Saqueador Veterano",25,10,0,0,7,"Saqueador experimentado del yermo, ha pasado por tantas matansas y saqueos que se ha convertido en una maquina de matar");}
+		else if(option==22 || option==23 || option==24) {return new Enemy("Protectron",20,10,12,0,8,"Robot creado antes de la gran guerra para servir a la humanidad,con el paso de los años y la radiacion afecto a su sistema, ahora solo mata lo que ve");}
+		else if(option==25 || option==26) {return new Enemy("Super Mutante",30,15,0,0,10,"Humano que fue mutado geneticamente por el virus V.E.F,Ahora es una masa de puro musculo y sin cerebro,Esta raza se cree superior a las demas,para el tu eres otra mutaracha mas");}
+		else if(option==27 || option==28) {return new Enemy("Synth",30,0,15,0,10,"Androide creado por una organizacion misteriosa del yermo, estos androides matan o capturan por ordenes de sus creadores");}
+		else if(option==27 || option==28) {return new Enemy("Lider Saqueador",35,0,15,0,14,"Saqueador muy poderoso que es lider de bandas de saqueadores");}
+		else if(option==27 || option==28) {return new Enemy("Hijo del atomo",35,0,0,15,14,"Humano que pertenece a la faccion del 'Atomo', creen que la radiacion es una bendicion y que los va a salvar de la muerte,si no eres de su faccion eres un enemigo para ellos");}
+		else if(option==29 || option==30) {return new Enemy("Mirelurk",50,10,0,0,14,"Cangrejo mutado por la radiacion, posee un caparazon que lo hace resistente contra todo tipo de armas");}
+		else if(option==31) {return new Enemy("Soldado del Enclave",50,10,10,0,20,"??????");}
+		else if(option==32) {return new Enemy("Lider Artillero",40,10,10,0,18,"Lider de un escuadron de artilleros,han quitato incontables vidas y no le tienen miedo a nada");}
+		else if(option==33) {return new Enemy("Asaltron",50,0,20,0,20,"Robot creado para propositos militares, al igual que los protectrones,no tienen razon de ser alguna solo destruir la vida");}
+		else if(option==34) {return new Enemy("Yao-Guai",60,10,0,10,25,"Oso sin pelo que casi a duplicado su tamaño debido a la radiacion");}
+		else if(option==0) {return new Enemy("Sanguinario",100,30,0,0,30,"Lagartija que muto por efecto de la radiacion del yermo,ahora es practicamente un dinosaurio en vida,son extremadamente salvajes y sedientos de sangre");}
+		else if(option==35) {return new Enemy("Behemoth",150,20,0,0,40,"Los Behemoths son los titanes del yermo, son criaturas que vienen de la especie de los supermutantes, pero estos miden 5 metros de altura, si uno te ve lo mas probable es que mueras");}
 		else {return null;}
 	}
 	public static Add randomAdd() {

@@ -34,9 +34,9 @@ public class Box implements Visited {
 	    
 	    
 	    public void setArmor(Entity Armor) {this.Armor = Armor;}
-	    public void setWeapon(Entity Gun) {this.Gun = Gun;}
-	    public void setMonster(Entity Enemy) {this.Enemy = Enemy;}
-	    public void setConsumable(Entity Add) {this.Add = Add;}
+	    public void setGun(Entity Gun) {this.Gun = Gun;}
+	    public void setEnemy(Entity Enemy) {this.Enemy = Enemy;}
+	    public void setAdd(Entity Add) {this.Add = Add;}
 	    public int setFAmmo(int FAmmo) {return this.FAmmo=FAmmo;}
 	    public int setEAmmo(int EAmmo) {return this.EAmmo=EAmmo;}
 	    public int setRAmmo(int RAmmo) {return this.RAmmo=RAmmo;}

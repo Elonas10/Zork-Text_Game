@@ -7,12 +7,9 @@ public class Enemy extends Entity {
 	private int EnergyDmg;
 	private int RadDmg;
 	private int Xp;
-	private int FisicC;
-	private int EnergyC;
-	private int RadC;
 	private String Description;
 	
-	public Enemy(String name,double health,int FDmg,int EDmg,int RDmg,int Xp,int FisicC,int EnergyC,int RadC,String Description){
+	public Enemy(String name,double health,int FDmg,int EDmg,int RDmg,int Xp,String Description){
 		this.Name=name;
 		this.Health=health;
 		this.FisicDmg=FDmg;
@@ -20,16 +17,15 @@ public class Enemy extends Entity {
 		this.RadDmg=RDmg;
 		this.Description=Description;
 		this.Xp=Xp;
-		this.FisicC=FisicC;
-		this.EnergyC=EnergyC;
-		this.RadC=RadC;
 	}
 	
 	public String getName() {return this.Name;}
 	public double getHealth() {return this.Health;}
+	public double setHealth(double dmg) {return this.Health=this.Health-dmg;}
 	public int getFisicDmg() {return this.FisicDmg;}
 	public int getEnergyDmg() {return this.EnergyDmg;}
 	public int getRadDmg() {return this.RadDmg;}
+	public int getXp() {return this.Xp;}
 	public String getDescription() {return this.Description;}
 	public String getType() {return this.getClass().getSimpleName();}
 
@@ -146,4 +142,73 @@ public class Enemy extends Entity {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void showAllGun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showGunNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showGun(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAllArmor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showArmorNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showArmor(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAllAdd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAdd(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAddNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int TotalWeigh() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double applyRad(double Max_H, double Rad) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public Human visit(Box box, Human Humano) {
+        return super.visit(box, Humano);
+    }
 }

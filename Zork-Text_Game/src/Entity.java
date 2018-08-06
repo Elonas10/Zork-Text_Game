@@ -1,5 +1,8 @@
 
-public abstract class Entity {
+public abstract class Entity implements IHuman, Visitor{
+	
+	Human Humano;
+	
 	public abstract String getName();
 	public abstract String getType();
 	public abstract int getFisicDmg();
@@ -24,5 +27,6 @@ public abstract class Entity {
 	public abstract int getI();
 	public abstract int getA();
 	public abstract int getL();
+	public Human visit(Box box, Human Humano){return this.Humano.visit(box, Humano);}
 
 }

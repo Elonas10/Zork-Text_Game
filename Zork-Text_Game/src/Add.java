@@ -68,21 +68,81 @@ public class Add extends Entity{
 	public int getWeigh() {return 0;}
 
 	@Override
-	public int getFisicDefend() {
+	public int getFisicDefend() {return 0;}
+
+	@Override
+	public int getEnergyDefend() {return 0;}
+
+	@Override
+	public int getRadDefend() {return 0;}
+
+	@Override
+	public void showAllGun() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showGunNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showGun(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAllArmor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showArmorNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showArmor(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAllAdd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAdd(int option) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showAddNames() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int TotalWeigh() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getEnergyDefend() {
+	public double applyRad(double Max_H, double Rad) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int getRadDefend() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public Human visit(Box box, Human Humano) {
+        return super.visit(box, Humano);
+    }
 }	
 	
