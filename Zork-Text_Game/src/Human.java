@@ -575,6 +575,7 @@ public class Human implements Visitor {
 				else if(option==5) {Humano.SPECIAL[4]=Humano.SPECIAL[4]+1;}
 				else if(option==6) {Humano.SPECIAL[5]=Humano.SPECIAL[5]+1;}
 				else if(option==7) {Humano.SPECIAL[6]=Humano.SPECIAL[6]+1;}
+				Humano.Xp=Humano.Xp-100;
 			}
 			else {
 				System.out.println("No tienes suficientes puntos de experiencia");
@@ -1019,6 +1020,7 @@ public class Human implements Visitor {
 	 
 	}
 	
+	
 	public boolean foundObject(Human Humano) {
 		int option;
 		option= (int)Math.round(Math.random()*19);
@@ -1103,8 +1105,11 @@ public class Human implements Visitor {
 		}
 		else{return false;}
 	}
+	public int showGunFdmg(Gun gun) {
+		return gun.getFisicDmg();
+	}
 	
-	public boolean critic(Human Humano) {
+	public boolean critic (Human Humano) {
 		int option;
 		option= (int)Math.round(Math.random()*9);
 		if(Humano.SPECIAL[6]==0) {

@@ -1,9 +1,4 @@
-/Factory.class
-/Gun.class
-/Human.class
-/IVisitor.class
-/Main.class
-/Visited.class
-/Visitor.class
-/Map.class
-/IHuman.class
+/HumanGun.class
+/HumanWithPit.class
+/IGun.class
+/HumanWithGun.class
